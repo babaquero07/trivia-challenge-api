@@ -6,6 +6,7 @@ const cors = require("cors");
 const { PORT, MONGODB_URI } = require("./Utils/config");
 const logger = require("./Utils/logger");
 const middleware = require("./utils/middleware");
+const quizzesRouter = require("./Controllers/Quizzes");
 
 const app = express();
 
@@ -32,5 +33,10 @@ app.use((req, res, next) => {
   next();
 });
 app.set("port", PORT);
+
+app.use("/api/quizzes", quizzesRouter);
+
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;
