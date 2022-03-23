@@ -1,0 +1,28 @@
+{
+  "name": "trivia-challenge-api",
+  "version": "1.0.0",
+  "description": "back of the project trivia challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongoDB",
+    "mongoose"
+  ],
+  "author": "Brayan Baquero <babaquero3@misena.edu.co>",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "morgan": "^1.10.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^6.2.8"
+  }
+}
