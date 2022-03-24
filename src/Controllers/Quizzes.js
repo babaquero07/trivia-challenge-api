@@ -1,12 +1,40 @@
 const quizzesRouter = require("express").Router();
 const Quiz = require("../Models/Quiz");
+const Question = require("../Models/Question");
 
 quizzesRouter.post("/", async (req, res) => {
-  console.log(req.body);
-  const quiz = new Quiz(req.body);
-  await quiz.save();
+  const { categoryName } = req.body;
+  const category = await Category.findOne({ categoryName });
+  console.log(category);
+  if (category) {
+    const quiz = await new Quiz({ categoryName }).save();
 
-  res.status(201).json(quiz);
+    category.quizzesID = category.quizzesID.concat(quiz._id);
+    await category.save();
+
+    return res.status(201).json(quiz);
+  }
+
+  return res.status(404).json({ error: "Category not found" });
+});
+
+quizzesRouter.get("/", async (req, res) => {
+  const questions = await Question.find({});
+  questions.length > 0
+    ? res.status(302).json({ questions: questions.length, results: questions })
+    : res.status(404).json({ error: "The are not questions" });
+});
+
+quizzesRouter.get("/:category", async (req, res) => {
+  const { category } = req.params;
+  category.toLowerCase().replace(/\s+/g, "");
+  const questions = await Question.find({ category });
+
+  questions.length > 0
+    ? res
+        .status(302)
+        .json({ questions: questions.length, category, results: questions })
+    : res.status(404).json({ error: "The are not questions" });
 });
 
 module.exports = quizzesRouter;

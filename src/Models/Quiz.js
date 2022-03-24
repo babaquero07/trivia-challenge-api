@@ -1,11 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const quizSchema = new Schema({
-  categoryID: {
-    type: Schema.Types.ObjectId,
-    ref: "Category",
-  },
-  QuestionsID: [
+  results: [
     {
       type: Schema.Types.ObjectId,
       ref: "Question",

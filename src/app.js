@@ -7,6 +7,7 @@ const { PORT, MONGODB_URI } = require("./Utils/config");
 const logger = require("./Utils/logger");
 const middleware = require("./utils/middleware");
 const quizzesRouter = require("./Controllers/Quizzes");
+const questionsRouter = require("./Controllers/Questions");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 });
 app.set("port", PORT);
 
+app.use("/api/questions", questionsRouter);
 app.use("/api/quizzes", quizzesRouter);
 
 app.use(middleware.unknownEndpoint);
