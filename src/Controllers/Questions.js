@@ -12,7 +12,7 @@ questionsRouter.post("/", async (req, res) => {
   // console.log(category.questionsID);
   // category.questionsID = category.questionsID.concat(question._id);
   // await category.save();
-  res
+  return res
     .status(400)
     .json({ error: "The question already exists in the database" });
 });

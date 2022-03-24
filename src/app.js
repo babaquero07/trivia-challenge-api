@@ -8,6 +8,7 @@ const logger = require("./Utils/logger");
 const middleware = require("./utils/middleware");
 const quizzesRouter = require("./Controllers/Quizzes");
 const questionsRouter = require("./Controllers/Questions");
+const scoresRouter = require("./Controllers/Scores");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.set("port", PORT);
 
 app.use("/api/questions", questionsRouter);
 app.use("/api/quizzes", quizzesRouter);
+app.use("/api/scores", scoresRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
