@@ -51,11 +51,11 @@ const questionSchema = new Schema({
         type: Boolean,
         required: true,
       },
-      answer: {
+      answer2: {
         type: String,
         required: true,
       },
-      isCorrect: {
+      isCorrect2: {
         type: Boolean,
         required: true,
       },
