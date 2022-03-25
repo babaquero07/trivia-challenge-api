@@ -4,6 +4,7 @@ const Quiz = require("../Models/Quiz");
 
 questionsRouter.post("/", async (req, res) => {
   const { question } = req.body;
+  console.log(question);
   const foundQuestion = await Question.findOne({ question });
   if (!foundQuestion) {
     const question = await new Question(req.body).save();
@@ -47,7 +48,7 @@ questionsRouter.put("/", async (req, res) => {
       new: true,
     }
   );
-  return res.json(updatedQuestion);
+  return res.json({ succes: "Question updated successfully", updatedQuestion });
 });
 
 questionsRouter.delete("/:id", async (req, res) => {
