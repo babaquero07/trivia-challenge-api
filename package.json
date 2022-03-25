@@ -4,7 +4,7 @@
   "description": "back of the project trivia challenge",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "keywords": [
