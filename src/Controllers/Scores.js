@@ -7,7 +7,7 @@ scoresRouter.post("/", async (req, res) => {
   const user = await Score.find({ email });
 
   if (!user) {
-    console.log(email);
+    email;
     const score = await new Score({
       email,
       newScore,
@@ -36,7 +36,7 @@ scoresRouter.put("/", async (req, res) => {
   const { scoreID, email, ...newScoreInfo } = req.body;
 
   const userScores = await Score.find({ email });
-  console.log(userScores);
+  userScores;
   if (!userScores) {
     const score = {
       email,

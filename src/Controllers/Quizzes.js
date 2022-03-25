@@ -5,7 +5,7 @@ const Question = require("../Models/Question");
 quizzesRouter.post("/", async (req, res) => {
   const { categoryName } = req.body;
   const category = await Category.findOne({ categoryName });
-  console.log(category);
+  category;
   if (category) {
     const quiz = await new Quiz({ categoryName }).save();
 

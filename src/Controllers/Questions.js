@@ -9,7 +9,7 @@ questionsRouter.post("/", async (req, res) => {
     const question = await new Question(req.body).save();
     return res.status(201).json(question);
   }
-  // console.log(category.questionsID);
+  // (category.questionsID);
   // category.questionsID = category.questionsID.concat(question._id);
   // await category.save();
   return res
