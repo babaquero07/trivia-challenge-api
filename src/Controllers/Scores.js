@@ -2,10 +2,25 @@ const scoresRouter = require("express").Router();
 const Score = require("../Models/Score");
 
 scoresRouter.post("/", async (req, res) => {
-  const { quiz, ...newScore } = req.body;
+  const { quiz, email, ...newScore } = req.body;
   const { category } = quiz;
-  const score = await new Score({ quizCategory: category, ...newScore }).save();
-  res.status(201).json(score);
+  const user = await Score.find({ email });
+  if (!user) {
+    const score = await new Score({
+      email,
+      newScore,
+      quizCategory: category,
+    }).save();
+    res.status(201).json(score);
+  } else {
+    const score = await new Score({
+      ...newScore,
+      // email,
+      quizCategory: category,
+    }).save();
+    return res.status(201).json(score);
+  }
+  return res.status(404).json({ err: "Score not found" });
 });
 
 scoresRouter.get("/", async (req, res) => {
@@ -16,21 +31,40 @@ scoresRouter.get("/", async (req, res) => {
 });
 
 scoresRouter.put("/", async (req, res) => {
-  const { scoreID, ...newScoreInfo } = req.body;
+  const { scoreID, email, ...newScoreInfo } = req.body;
 
-  const score = {
-    ...newScoreInfo,
-  };
+  const userScores = await Score.find({ email });
+  console.log(userScores);
+  if (!userScores) {
+    const score = {
+      email,
+      ...newScoreInfo,
+    };
 
-  const updatedScore = await Score.findByIdAndUpdate(scoreID, score, {
-    new: true,
-  });
-
-  if (updatedScore)
-    return res.json({
-      newScore: updatedScore,
-      msg: "Score updated sucessfully!",
+    const updatedScore = await Score.findByIdAndUpdate(scoreID, score, {
+      new: true,
     });
+
+    if (updatedScore)
+      return res.json({
+        newScore: updatedScore,
+        msg: "Score updated sucessfully!",
+      });
+  } else {
+    const score = {
+      email,
+      ...newScoreInfo,
+    };
+
+    const updatedScore = await Score.findByIdAndUpdate(scoreID, score, {
+      new: true,
+    });
+    if (updatedScore)
+      return res.json({
+        newScore: updatedScore,
+        msg: "Score updated sucessfully!",
+      });
+  }
 
   return res.status(404).json({ err: "Score not found. Check the ID" });
 });
